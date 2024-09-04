@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portafolio de Desarrollador Full Stack</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Estilos básicos */
+        body {
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        header {
+            background-color: #333;
+            color: #f4f4f4;
+            padding: 1rem;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-list {
+            list-style: none;
+            display: flex;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-link, .btn, .btn-theme-toggle {
+            color: #f4f4f4;
+            text-decoration: none;
+            margin: 0 1rem;
+        }
+
+        .btn-theme-toggle {
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+            font-size: 1.25rem;
+        }
+
+        /* Secciones */
+        .section {
+            padding: 4rem 1rem;
+            background-color: #fff;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content, .about-content, .projects-content, .experience-content, .skills-content, .blog-content, .contact-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem;
+        }
+
+        /* Estilos para botones */
+        .btn {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background-color: #3498db;
+            color: #fff;
+        }
+
+        .btn-secondary {
+            background-color: #2ecc71;
+            color: #fff;
+        }
+
+        .btn-primary:hover {
+            background-color: #2980b9;
+        }
+
+        .btn-secondary:hover {
+            background-color: #27ae60;
+        }
+
+        /* Estilos para el modo oscuro */
+        body.dark-mode {
+            background-color: #1e1e1e;
+            color: #f4f4f4;
+        }
+
+        body.dark-mode .section {
+            background-color: #2d2d2d;
+        }
+
+        body.dark-mode .btn-primary, body.dark-mode .btn-secondary {
+            background-color: #007acc;
+        }
+
+        body.dark-mode .btn-primary:hover, body.dark-mode .btn-secondary:hover {
+            background-color: #005f99;
+        }
+
+        body.dark-mode .tooltip {
+            background-color: #333;
+            color: #f4f4f4;
+        }
+
+        /* Sección Hero */
+        .section.active {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            color: #f4f4f4;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 700px;
+            padding: 1rem;
+        }
+
+        .hero-content h1 {
+            font-family: 'Roboto', sans-serif;
+            font-size: 3rem;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 0.5rem;
+        }
+
+        .hero-content h2 {
+            font-family: 'Roboto', sans-serif;
+            font-size: 2rem;
+            font-weight: 400;
+            color: #f4f4f4;
+            margin-bottom: 1rem;
+        }
+
+        .hero-content p {
+            font-family: 'Arial', sans-serif;
+            font-size: 1.125rem;
+            color: #e0e0e0;
+            line-height: 1.5;
+            margin-bottom: 2rem;
+        }
+
+        .highlight {
+            color: #f39c12; /* Color dorado */
+            font-weight: 700;
+        }
+
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .hero-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            overflow: hidden;
+            background: url('https://i.ytimg.com/vi/bBAnbfBS7zI/maxresdefault.jpg') center/cover no-repeat;
+            filter: brightness(60%);
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4); /* Overlay oscuro */
+            z-index: 1;
+        }
+
+        /* Sección Sobre Mí */
+        .about-content h2 {
+            font-size: 2.5rem;
+            color: #333;
+            margin-bottom: 1rem;
+        }
+
+        .about-content p {
+            font-size: 1.125rem;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .about-content h3 {
+            font-size: 1.75rem;
+            color: #3498db;
+            margin-top: 1.5rem;
+        }
+
+        .about-content ul {
+            list-style: disc;
+            padding-left: 1.5rem;
+        }
+
+        .about-content blockquote {
+            border-left: 4px solid #3498db;
+            padding-left: 1rem;
+            margin-left: 0;
+            font-style: italic;
+            color: #666;
+        }
+
+        /* Sección Proyectos */
+        .projects-content h2 {
+            font-size: 2.5rem;
+            color: #333;
+            margin-bottom: 1.5rem;
+        }
+
+        .projects-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            justify-content: center;
+        }
+
+        .project-card {
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            width: calc(33% - 1rem);
+            transition: transform 0.3s ease;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .project-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .project-info {
+            padding: 1rem;
+        }
+
+        .project-info h3 {
+            font-size: 1.5rem;
+            color: #333;
+        }
+
+        .project-info p {
+            font-size: 1rem;
+            color: #666;
+            margin-bottom: 1rem;
+        }
+
+        /* Sección Experiencia */
+        .experience-content h2 {
+            font-size: 2.5rem;
+            color: #333;
+            margin-bottom: 1.5rem;
+        }
+
+        .experience-content h3 {
+            font-size: 1.75rem;
+            color: #3498db;
+            margin-top: 1rem;
+        }
+
+        .experience-content p {
+            font-size: 1.125rem;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* Sección Habilidades */
+        .skills-content h2 {
+            font-size: 2.5rem;
+            color: #333;
+            margin-bottom: 1.5rem;
+        }
+
+        .skills-content h3 {
+            font-size: 1.75rem;
+            color: #3498db;
+            margin-top: 1rem;
+        }
+
+        .skills-content ul {
+            list-style: disc;
+            padding-left: 1.5rem;
+            font-size: 1.125rem;
+            color: #666;
+        }
+
+        /* Sección Blog */
+        .blog-content h2 {
+            font-size: 2.5rem;
+            color: #333;
+            margin-bottom: 1.5rem;
+        }
+
+        .blog-content p {
+            font-size: 1.125rem;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* Sección Contacto */
+        .contact-content h2 {
+            font-size: 2.5rem;
+            color: #333;
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-content form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .contact-content label {
+            font-size: 1.125rem;
+            color: #333;
+        }
+
+        .contact-content input, .contact-content textarea {
+            padding: 0.75rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+            color: #333;
+        }
+
+        .contact-content button {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 5px;
+            background-color: #3498db;
+            color: #fff;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .contact-content button:hover {
+            background-color: #2980b9;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #333;
+            color: #f4f4f4;
+            text-align: center;
+            padding: 1rem;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+
+        footer p {
+            margin: 0;
+            font-size: 0.875rem;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <a href="#" class="nav-link">Inicio</a>
+            <a href="#about" class="nav-link">Sobre Mí</a>
+            <a href="#projects" class="nav-link">Proyectos</a>
+            <a href="#experience" class="nav-link">Experiencia</a>
+            <a href="#skills" class="nav-link">Habilidades</a>
+            <a href="#blog" class="nav-link">Blog</a>
+            <a href="#contact" class="nav-link">Contacto</a>
+            <button class="btn-theme-toggle"><i class="fas fa-moon"></i></button>
+        </nav>
+    </header>
+
+    <!-- Sección Hero -->
+    <section id="hero" class="section active">
+        <div class="hero-background"></div>
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1>Hola, soy <span class="highlight">[Tu Nombre]</span></h1>
+            <h2>Desarrollador Full Stack</h2>
+            <p>Me especializo en crear soluciones web completas, desde el frontend hasta el backend.</p>
+            <div class="cta-buttons">
+                <a href="#contact" class="btn btn-primary">Contáctame</a>
+                <a href="#projects" class="btn btn-secondary">Ver Proyectos</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección Sobre Mí -->
+    <section id="about" class="section">
+        <div class="about-content">
+            <h2>Sobre Mí</h2>
+            <p>Hola, soy [Tu Nombre], un desarrollador apasionado con experiencia en diversas tecnologías y herramientas. Me encanta resolver problemas complejos y crear aplicaciones que proporcionen valor real a los usuarios.</p>
+            <h3>Mi Historia</h3>
+            <p>Comencé mi carrera en [Año] y desde entonces he trabajado en una variedad de proyectos que abarcan desde aplicaciones web hasta soluciones móviles.</p>
+            <h3>Habilidades y Competencias</h3>
+            <ul>
+                <li>Desarrollo Frontend (HTML, CSS, JavaScript)</li>
+                <li>Desarrollo Backend (Node.js, Python, Ruby)</li>
+                <li>Base de Datos (SQL, NoSQL)</li>
+                <li>Control de Versiones (Git)</li>
+                <li>Pruebas y Control de Calidad</li>
+            </ul>
+            <blockquote>
+                “La programación es el arte de hacer que las máquinas hagan lo que nosotros queremos.”
+            </blockquote>
+        </div>
+    </section>
+
+    <!-- Sección Proyectos -->
+    <section id="projects" class="section">
+        <div class="projects-content">
+            <h2>Mis Proyectos</h2>
+            <div class="projects-grid">
+                <!-- Ejemplo de un proyecto -->
+                <div class="project-card">
+                    <img src="https://via.placeholder.com/400x200" alt="Proyecto 1" class="project-image">
+                    <div class="project-info">
+                        <h3>Proyecto 1</h3>
+                        <p>Descripción breve del proyecto 1. Incluye tecnologías utilizadas y el propósito del proyecto.</p>
+                    </div>
+                </div>
+                <!-- Más proyectos aquí -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección Experiencia -->
+    <section id="experience" class="section">
+        <div class="experience-content">
+            <h2>Experiencia</h2>
+            <h3>Desarrollador en [Nombre de la Empresa]</h3>
+            <p>Descripción de tus responsabilidades y logros en esta posición. Detalles sobre las tecnologías que usaste y proyectos que completaste.</p>
+            <!-- Más experiencias aquí -->
+        </div>
+    </section>
+
+    <!-- Sección Habilidades -->
+    <section id="skills" class="section">
+        <div class="skills-content">
+            <h2>Habilidades</h2>
+            <h3>Habilidades Técnicas</h3>
+            <ul>
+                <li>HTML5</li>
+                <li>CSS3</li>
+                <li>JavaScript</li>
+                <li>React.js</li>
+                <li>Node.js</li>
+                <li>Python</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Sección Blog -->
+    <section id="blog" class="section">
+        <div class="blog-content">
+            <h2>Blog</h2>
+            <p>Aquí puedes encontrar artículos y publicaciones sobre tecnología, desarrollo web y temas relacionados con la programación.</p>
+            <!-- Artículos del blog aquí -->
+        </div>
+    </section>
+
+    <!-- Sección Contacto -->
+    <section id="contact" class="section">
+        <div class="contact-content">
+            <h2>Contacto</h2>
+            <form action="#" method="post">
+                <label for="name">Nombre:</label>
+                <input type="text" id="name" name="name" required>
+                
+                <label for="email">Correo Electrónico:</label>
+                <input type="email" id="email" name="email" required>
+                
+                <label for="message">Mensaje:</label>
+                <textarea id="message" name="message" rows="4" required></textarea>
+                
+                <button type="submit">Enviar Mensaje</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 [Tu Nombre]. Todos los derechos reservados.</p>
+    </footer>
+
+    <script>
+        // Funcionalidad de cambio de tema
+        document.querySelector('.btn-theme-toggle').addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+            const icon = document.querySelector('.btn-theme-toggle i');
+            if (document.body.classList.contains('dark-mode')) {
+                icon.classList.remove('fa-moon');
+                icon.classList.add('fa-sun');
+            } else {
+                icon.classList.remove('fa-sun');
+                icon.classList.add('fa-moon');
+            }
+        });
+    </script>
+</body>
+</html>
